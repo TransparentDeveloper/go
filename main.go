@@ -17,13 +17,23 @@ func (p Player) Info() {
 	fmt.Printf("ID: %s | LV: %d\n", p.Name, p.Level)
 }
 
-// [복사] 원본은 그대로, 가짜(복제본)만 수정됨
-func Levelup(p Player) {
+// [복사] (메서드) 원본은 그대로, 가짜(복제본)만 수정됨
+func (p Player) MethodLevelup() {
 	p.Level++
 }
 
-// [참조] * 를 붙여서 메모리 주소를 받음. 원본 수정!
-func RealLevelup(p *Player) {
+// [참조] (메서드) * 를 붙여서 메모리 주소를 받음. 원본 수정!
+func (p *Player) MethodRealLevelup() {
+	p.Level++
+}
+
+// [복사] (함수) 원본은 그대로, 가짜(복제본)만 수정됨
+func FunctionLevelup(p Player) {
+	p.Level++
+}
+
+// [참조] (함수) * 를 붙여서 메모리 주소를 받음. 원본 수정!
+func FunctionRealLevelup(p *Player) {
 	p.Level++
 }
 
@@ -34,9 +44,9 @@ func main() {
 	// 메서드 호출
 	p1.Info()
 
-	Levelup(p1)
+	p1.MethodLevelup()
 	fmt.Println(p1.Level) // 결과: 1 (안 변함)
 
-	RealLevelup(&p1)      // & 기호는 "주소값을 넘긴다"는 뜻
+	p1.MethodRealLevelup()
 	fmt.Println(p1.Level) // 결과: 2 (변함)
 }
