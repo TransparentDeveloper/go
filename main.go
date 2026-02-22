@@ -2,7 +2,10 @@
 // 빌드 시, "실행파일" 이 생성된다.
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // --------------[struct]--------------
 
@@ -71,6 +74,15 @@ func DoSound(s Sounder) {
 	s.MakeSound() // 어떤 타입이 오든 Sounder 인터페이스만 만족하면 OK!
 }
 
+// --------------[goroutine]--------------
+
+func say(s string) {
+	for range 5 {
+		time.Sleep(1000 * time.Millisecond)
+		fmt.Println(s)
+	}
+}
+
 func main() {
 	fmt.Println("\n--------------[struct 실습]--------------")
 
@@ -86,7 +98,7 @@ func main() {
 	p1.MethodRealLevelup()
 	fmt.Println(p1.Level) // 결과: 2 (변함)
 
-	fmt.Println("\n--------------[interface 실습]--------------")
+	fmt.Println("\n--------------[goroutine 실습]--------------")
 	d := Dog{}
 	r := Robot{}
 
@@ -100,4 +112,12 @@ func main() {
 
 	s.MakeSound() // 결과: 위잉
 	m.Move()      // 결과: 로봇 이동 중..
+
+	fmt.Println("\n--------------[interface 실습]--------------")
+
+	// (비동기)
+	go say("[서브 고루틴(1)] 실행 중..")
+	go say("[서브 고루틴(2)] 실행 중..")
+	// (동기)
+	say("[메인 고루틴] 실행 중..")
 }
