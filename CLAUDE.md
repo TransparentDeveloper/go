@@ -6,6 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Go learning/study project for mastering Go programming.
 
+## Documentation Style
+
+- Korean language for comments and documentation (학습 기록용)
+- Commit messages in Korean
+
 ## Commands
 
 ```bash
