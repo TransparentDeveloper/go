@@ -1,3 +1,5 @@
+// 이 파일이 프로그램의 시작점(Entry Point) 임을 선언하는 코드
+// 빌드 시, "실행파일" 이 생성된다.
 package main
 
 import "fmt"
