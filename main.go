@@ -46,6 +46,10 @@ type Sounder interface {
 	MakeSound()
 }
 
+type Mover interface {
+	Move()
+}
+
 // 구조체 정의
 type Dog struct{}
 type Robot struct{}
@@ -57,6 +61,10 @@ func (d Dog) MakeSound() {
 
 func (r Robot) MakeSound() {
 	fmt.Println("위잉")
+}
+
+func (r Robot) Move() {
+	fmt.Println("로봇 이동 중..")
 }
 
 func DoSound(s Sounder) {
@@ -83,5 +91,13 @@ func main() {
 	r := Robot{}
 
 	DoSound(d) // 결과: 멍
-	DoSound(r) // 위잉
+	DoSound(r) // 결과: 위잉
+
+	fmt.Println("")
+
+	var s Sounder = r
+	var m Mover = r
+
+	s.MakeSound() // 결과: 위잉
+	m.Move()      // 결과: 로봇 이동 중..
 }
