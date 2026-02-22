@@ -83,6 +83,16 @@ func say(s string) {
 	}
 }
 
+// --------------[channel]--------------
+
+func sum(s []int, c chan int) {
+	sum := 0
+	for _, v := range s {
+		sum += v
+	}
+	c <- sum // 1. 채널에 합계 데이터를 보냄
+}
+
 func main() {
 	fmt.Println("\n--------------[struct 실습]--------------")
 
@@ -98,7 +108,8 @@ func main() {
 	p1.MethodRealLevelup()
 	fmt.Println(p1.Level) // 결과: 2 (변함)
 
-	fmt.Println("\n--------------[goroutine 실습]--------------")
+	fmt.Println("\n--------------[interface 실습]--------------")
+
 	d := Dog{}
 	r := Robot{}
 
@@ -113,11 +124,25 @@ func main() {
 	s.MakeSound() // 결과: 위잉
 	m.Move()      // 결과: 로봇 이동 중..
 
-	fmt.Println("\n--------------[interface 실습]--------------")
+	fmt.Println("\n--------------[goroutine 실습]--------------")
 
 	// (비동기)
 	go say("[서브 고루틴(1)] 실행 중..")
 	go say("[서브 고루틴(2)] 실행 중..")
 	// (동기)
 	say("[메인 고루틴] 실행 중..")
+
+	fmt.Println("\n--------------[channel 실습]--------------")
+
+	arr := []int{3, 6, 3, -1, 12, 0, 4, -2}
+	cha := make(chan int) // 채널 생성
+
+	go sum(arr[len(arr)/2:], cha)
+	go sum(arr[:len(arr)/2], cha)
+
+	// 3. 채널로부터 데이터를 받음 (Receive)
+	// 데이터가 도착할 때까지 대기
+	sumRes1, sumRes2 := <-cha, <-cha
+
+	fmt.Println(sumRes1, sumRes2, sumRes1+sumRes2)
 }
