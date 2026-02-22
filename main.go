@@ -4,6 +4,8 @@ package main
 
 import "fmt"
 
+// --------------[struct]--------------
+
 // 구조체 정의 (데이터 설계)
 // 특징: 객체지향의 '클래스' 역할을 수행하지만, 상속은 없음
 type Player struct {
@@ -37,7 +39,33 @@ func FunctionRealLevelup(p *Player) {
 	p.Level++
 }
 
+// --------------[interface]--------------
+
+// 인터페이스 정의
+type Sounder interface {
+	MakeSound()
+}
+
+// 구조체 정의
+type Dog struct{}
+type Robot struct{}
+
+// 각자 방식대로 메서드 구현
+func (d Dog) MakeSound() {
+	fmt.Println("멍")
+}
+
+func (r Robot) MakeSound() {
+	fmt.Println("위잉")
+}
+
+func DoSound(s Sounder) {
+	s.MakeSound() // 어떤 타입이 오든 Sounder 인터페이스만 만족하면 OK!
+}
+
 func main() {
+	fmt.Println("\n--------------[struct 실습]--------------")
+
 	// 구조체 인스턴스 생성
 	p1 := Player{Name: "GoMaster", Level: 1}
 
@@ -49,4 +77,11 @@ func main() {
 
 	p1.MethodRealLevelup()
 	fmt.Println(p1.Level) // 결과: 2 (변함)
+
+	fmt.Println("\n--------------[interface 실습]--------------")
+	d := Dog{}
+	r := Robot{}
+
+	DoSound(d) // 결과: 멍
+	DoSound(r) // 위잉
 }
